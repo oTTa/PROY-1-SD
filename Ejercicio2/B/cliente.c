@@ -64,7 +64,7 @@ void cerrarConexion()
 
 double calcularTiempo_nano()
 {
-	return (   (tf_nano.tv_sec - ti_nano.tv_sec)*1000000 + (tf_nano.tv_nsec - ti_nano.tv_nsec)   );
+	return (   (tf_nano.tv_sec - ti_nano.tv_sec)*1000000000 + (tf_nano.tv_nsec - ti_nano.tv_nsec)   );
 }
 
 void realizarFork()
