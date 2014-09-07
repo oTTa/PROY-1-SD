@@ -24,7 +24,7 @@ int main (){
   tiemponano= (tf_nano.tv_sec - ti_nano.tv_sec)*1000000000 + (tf_nano.tv_nsec - ti_nano.tv_nsec);
   //muestro los resultados
   printf ("Local Call dio como resultado en la salida: %lu\n",*respuesta);  
-  printf ("La llamada a LocalCall demoro %g ns\n",tiemponano);
+  printf ("La llamada a LocalCall demoro %g us | %g ns\n",tiemponano/1000,tiemponano);
   return (0);
 }
 
