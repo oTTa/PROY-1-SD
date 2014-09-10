@@ -3,13 +3,15 @@
 #include <time.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 
 
 int main() {
 
 	struct timespec ini, fin;
 
-	long duracion;
+	double nano;
 	int pid, err;
 
 	
@@ -23,12 +25,12 @@ int main() {
 		// Tiempo final
 		 clock_gettime( CLOCK_REALTIME, &fin) ;    // fin
 		// Lo transformo a nSegundos
-		duracion =( fin.tv_sec - ini.tv_sec )*1000000000+ (double)( fin.tv_nsec - ini.tv_nsec );
+		nano =( fin.tv_sec - ini.tv_sec )*1000000000+ (double)( fin.tv_nsec - ini.tv_nsec );
 	} else {
 	//proceso hijo...
 		exit(0);
 	};
 
-	printf("Tiempo para crear un nuevo hijo: %d nSegs \n",duracion);
-
+	printf("Tiempo para crear un nuevo hijo: %g nSegs | %g uSegs\n",nano,nano/1000);
+	printf ("Cantidad de procesos que puede crear:%lu \n",sysconf(_SC_CHILD_MAX));
 }
