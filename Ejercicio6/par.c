@@ -13,6 +13,8 @@ void MostrarFuncionamiento();
 void nombreMaquina(char * mensaje);
 void horaMaquina(char * mensaje);
 void Clima(char * mensaje);
+void temperaturaXML ();
+int saltosSubStringTemperatura (char* temperatura);
 
 int main(int argc, char **argv)
 {
@@ -28,6 +30,7 @@ int main(int argc, char **argv)
     
     amigo=argv[1];
     puerto = argv[2];
+    //mensaje= (char*)malloc (sizeof(char)*MSG_SIZE);
     MostrarFuncionamiento();
    if ( amigoConectado(amigo, puerto)){//Modo cliente
 	while(1)
@@ -95,18 +98,18 @@ void mostrar(char * msg)
 void Menu()
 {
     printf("\n################¿QUE INFORMACION DESEA OBTENER DEL PROCESO AMIGO?#################\n");
-	printf("1- Los usuarios logueados del sistema\n2- La hora del sistema S\n3- Nombre de la maquina\n4- Temperatura de la localidad donde esta ubicado\n-Cualquier otra tecla'Salir'\n \n");	
+	printf("1- Los usuarios logueados del sistema\n2- La hora del sistema \n3- Nombre de la maquina\n4- Temperatura de la localidad donde esta ubicado\n-5 'Salir'\n \n");	
 }
 //explica el funcionamiento del programa
 void MostrarFuncionamiento()
 {
-   printf("\nEsta aplicacion funciona de manera tal que cada uno de los pares se intercambian las preguntas, es decir que cada par no puede hacer dos preguntas seguidas, para hacer la segunda pregunta se debe esperar a que me pregunte el otro par \n\n\n");	
+   printf("\nfuncionamiento:El primero en conectarse sera el proceso servidor \n\n");	
 }
 
 //Nos devuelve el nombre de la maquina
 void nombreMaquina(char * mensaje){
 
-	if(gethostname(mensaje, 255)<0)
+	if(gethostname(mensaje, MSG_SIZE)<0)
 	{
 		printf("Error al obtener el hostname.-\n");
 		exit(1);
@@ -125,11 +128,56 @@ void horaMaquina(char * mensaje)
 
 }
 
-//Nos devuelve el clima
+
+
+//Nos devuelve el clima de BB
 void Clima(char * mensaje)
 {
-    char temp [MSG_SIZE] = "Hacen 26 Grandos en la ciudad\n";
-    strcpy(mensaje, temp);
+    system("wget http://xml.tutiempo.net/xml/42815.xml");
+    temperaturaXML(mensaje);
+    system("rm 42815.xml");
+}
+
+void temperaturaXML (char * mensaje){
+  char* temperatura=(char*)malloc(sizeof(char)*300);
+  char* resu=(char*)malloc(sizeof(char)*3);
+  char* buscar = "<temperatura>";
+  char* aux;
+  int saltos;
+  FILE *xml= fopen("42815.xml","r");  
+  int continuar=1;
+  //no se pudo conectar al servidor, por lo tanto se pide que se verifica la conexion
+  if (!xml)
+    strcpy(mensaje,"No se pudo conectar con el servidor del clima 'tutiempo.net', verifique la conexion a internet del proceso amigo");
+  else{
+    while (feof(xml) == 0 && continuar)
+ 	{
+		fgets(temperatura,300,xml);
+		aux = strstr(temperatura,buscar);
+		if (aux!=NULL)
+		  continuar=0;
+ 	}
+    fclose(xml);
+    //obtiene la temperatura y la copia en resu
+    strncpy (resu,aux+strlen(buscar),saltosSubStringTemperatura(aux));
+    /*//en caso de que la temperatura sea de un digitos
+    if (*(aux+strlen(buscar)+2)=='<')
+	  strncpy (resu,aux+strlen(buscar),1);
+    //en caso de que la temperatura sea de 2 digitos
+    else
+      strncpy (resu,aux+strlen(buscar),2);*/
+    free(temperatura);
+    strncpy(mensaje,resu,2);
+    strcat(mensaje,"º en la ciudad de Bahía Blanca");
+  }
+}
+
+int saltosSubStringTemperatura (char* temperatura){
+  char* inicio = "<temperatura>";
+  int resu=0;
+  while (*(temperatura+strlen(inicio)+resu)!='<')
+    resu++;
+  return resu;
 }
 
 //Nos informa de los usuarios logueados en el sistema

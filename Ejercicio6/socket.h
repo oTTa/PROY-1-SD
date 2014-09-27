@@ -1,5 +1,5 @@
-#define MSG_SIZE         256 //tamaño del mensaje
-#define MAXBUF           1024
+#define MSG_SIZE         512 //tamaño del mensaje
+#define MAXBUF           1025
 
 //verifico si hay un amigo ya conectado y si es asi se inicia como cliente
 int amigoConectado (char *hostname, char * port);
