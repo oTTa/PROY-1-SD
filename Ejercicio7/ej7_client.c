@@ -16,7 +16,7 @@ ej7_1(char *host)
 	long ajuste,diferencia;
         struct timeval ti,tf;
 #ifndef	DEBUG
-	clnt = clnt_create (host, ej7, ej7v1, "udp");
+	clnt = clnt_create (host, ej7, ej7v1, "tcp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
