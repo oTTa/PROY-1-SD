@@ -93,7 +93,23 @@ public class SocketServidor
     }
     
     private String obtenerCantUsuariosLogueados(){
-     return "2";
+    int lNumeroLineas = 0;
+    try {
+            Process p = Runtime.getRuntime().exec("who");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line=reader.readLine();
+
+            while (line != null) {    
+                lNumeroLineas++;
+                line = reader.readLine();
+            }
+
+        }
+        catch(IOException e1) {e1.printStackTrace();}
+        catch(InterruptedException e2) {e2.printStackTrace();}
+
+     return (""+lNumeroLineas);
     }
     
 }
