@@ -18,8 +18,11 @@ public class SocketCliente
      {
          try
          {
+	      //para medir tiempos
+	      long time_start, time_end;
               //dato que se le va a pedir al servidor
 	      String pedido;
+	      String rta;
 	      //para leer por pantalla
 	      Scanner lector = new Scanner(System.in);
              /* Se crea el socket cliente */
@@ -47,9 +50,13 @@ public class SocketCliente
 	      }
 	      else{
 		//enviamos el pedido al servidor
+		time_start = System.nanoTime();
 		salida.writeUTF(pedido);
+		rta=entrada.readUTF();
+		time_end = System.nanoTime();
 		//respues del servidor
-		System.out.println ("[SD2014]> Respuesta: " + entrada.readUTF());
+		System.out.println ("[SD2014]> Respuesta: " + rta);
+		System.out.println ("[SD2014]> Tiempo de respuesta: " + (time_end-time_start) + " ns");
 		System.out.println ();
 	      }
              }
