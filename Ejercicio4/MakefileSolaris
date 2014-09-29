@@ -1,0 +1,3 @@
+all :
+	gcc -o Client cliente.c -lxnet
+	gcc -o Server servidor.c -lxnet

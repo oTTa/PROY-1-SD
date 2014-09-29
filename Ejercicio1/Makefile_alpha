@@ -3,5 +3,5 @@ FUENTES=ejercicio_01_alpha.c
 CC = gcc
 
 ejercicio_01: $(OBJETOS) 
-	$(CC) $(OBJETOS) -o ejercicio_01_alpha
+	$(CC) $(FUENTES) -o ejercicio_01_alpha
  

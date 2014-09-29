@@ -3,18 +3,17 @@
 #include <time.h>
 #include <stdlib.h>
 
-int main()
+int main(int argc, char *argv[])
 {
 	double tiemponano;
 	struct timespec ti_nano, tf_nano;
 	int pid;
-
 	clock_gettime(CLOCK_REALTIME, &ti_nano);  // Instante inicial
 	pid = fork();
 
 	if (pid != 0)
 	{
-		wait(pid);
+		wait(0);
 		clock_gettime(CLOCK_REALTIME, &tf_nano);  // Instante final
 		tiemponano= (tf_nano.tv_sec - ti_nano.tv_sec)*1000000000 + (tf_nano.tv_nsec - ti_nano.tv_nsec);
 		printf("crear un hijo y ejecutar la tarea tardo:%g us | %g ns \n", tiemponano/1000,tiemponano);
@@ -29,7 +28,9 @@ int main()
 	}
 	else
 	{
-		execvp("./salida", NULL);
+		char*args[]={"salida",argv[1], (char*) NULL};
+		execv("salida", args);
 		printf("Return not expected. Must be an execv error \n");
 	}
+	return 0;
 }

@@ -43,7 +43,7 @@ int crearSocketCliente(struct sockaddr_in* serv_addr, int port, struct hostent* 
 	serv_addr->sin_port = htons(port);
 	serv_addr->sin_addr = *((struct in_addr *)he->h_addr);
 	
-	bzero(&(serv_addr->sin_zero), 8);
+	
 
 	printf("[Cliente: Socket TCP creado]\n");
 

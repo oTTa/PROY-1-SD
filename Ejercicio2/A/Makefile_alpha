@@ -1,0 +1,6 @@
+OBJETOS = salida.o ejercicio2_alpha.o
+CC = gcc
+
+ejercicio2A:$(OBJETOS)
+	$(CC) $ salida.o -o salida 
+	$(CC) $ ejercicio2_alpha.o -o ejercicio2_alpha 

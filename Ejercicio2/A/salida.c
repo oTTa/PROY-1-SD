@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-int main(char *argv[]){
+int main(int argc, char *argv[]){
   int i;
   FILE *archivo;
   
@@ -20,4 +20,5 @@ int main(char *argv[]){
   
   fprintf(archivo, "Mi PID es %i \n",getpid());
   fclose (archivo);
+  return 0;
 }

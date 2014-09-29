@@ -1,0 +1,5 @@
+
+all :
+	rpcgen -C ej3b2.x
+	gcc -o server ej3b2_svc.c ej3b2_server.c  ej3b2_xdr.c -lnsl
+	gcc -o cliente ej3b2_clnt.c ej3b2_client.c  ej3b2_xdr.c -lnsl 

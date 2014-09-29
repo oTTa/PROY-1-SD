@@ -1,0 +1,3 @@
+all :
+	gcc -o Par1 par.c socket.c -lxnet
+	gcc -o Par2 par.c socket.c -lxnet

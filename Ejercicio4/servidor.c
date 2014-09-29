@@ -44,7 +44,7 @@ int crearSocketServer(struct sockaddr_in* my_address, int port)
 	my_address->sin_port = htons(port); /* Puerto: debe convertirse a network byte order */
 	my_address->sin_addr.s_addr = INADDR_ANY; /* automaticamente usa la IP local */
 	
-	bzero(&(my_address->sin_zero), 8); 
+
 
 	
 	/* Le asignamos un nombre al socket */
@@ -131,7 +131,7 @@ main()
 				enviar(sockclient, "Mensaje Corto", MAXDATASIZESHORT);
 				gettimeofday(&tf, NULL);   // Instante final
 				tiempo= (tf.tv_sec - ti.tv_sec)*1000000 + (tf.tv_usec - ti.tv_usec);
-				printf("Tiempo para atender el mensaje largo %g microsegundos.\n\n",tiempo);
+				printf("Tiempo para atender el mensaje corto %g microsegundos.\n\n",tiempo);
 }
 			close(sockclient);
 			exit(0);

@@ -33,4 +33,5 @@ int main() {
 
 	printf("Tiempo para crear un nuevo hijo: %g nSegs | %g uSegs\n",nano,nano/1000);
 	printf ("Cantidad de procesos que puede crear:%lu \n",sysconf(_SC_CHILD_MAX));
+	return 0;
 }

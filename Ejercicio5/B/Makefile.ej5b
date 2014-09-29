@@ -1,0 +1,4 @@
+all :
+	rpcgen -C ej5b.x
+	gcc -o server ej5b_svc.c ej5b_server.c -lnsl
+	gcc -o cliente ej5b_clnt.c ej5b_client.c -lnsl 

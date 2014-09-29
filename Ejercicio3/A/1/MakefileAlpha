@@ -1,0 +1,2 @@
+all :
+	gcc -o localcall_Alpha localcall_Alpha.c

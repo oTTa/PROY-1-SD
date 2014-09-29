@@ -11,8 +11,8 @@ int main (){
   //declaracion de variables
   unsigned long argumento1  [256],argumento2  [256];
   unsigned long respuesta[512];
-  double tiemponano;
-  struct timespec ti_nano, tf_nano;
+  double tiempo;
+  struct timeval ti_usec, tf_usec;
   int i;
   for (i=0;i<256;i++){
     *(argumento1+i)=rand();
@@ -20,12 +20,12 @@ int main (){
   }
   printf ("Se generaron 2 argumentos con 256 datos de tipo LONG (4 bytes) como entrada a la llamada local\n");
   // ejecuto la llamada y calculo el tiempo
-  clock_gettime(CLOCK_REALTIME, &ti_nano);  // Instante inicial
+  gettimeofday(&ti_usec,0);  // Instante inicial
   LocalCall(argumento1,argumento2,respuesta);
-  clock_gettime(CLOCK_REALTIME, &tf_nano);  // Instante final
-  tiemponano= (tf_nano.tv_sec - ti_nano.tv_sec)*1000000000 + (tf_nano.tv_nsec - ti_nano.tv_nsec);
+  gettimeofday(&tf_usec,0);  // Instante final
+  tiempo= (tf_usec.tv_sec - ti_usec.tv_sec)*1000000 + (tf_usec.tv_usec - ti_usec.tv_usec);
   //muestro los resultados
-  printf ("La llamada a LocalCall demoro %g us | %g ns\n",tiemponano/1000,tiemponano);
+  printf ("La llamada a LocalCall demoro %g us\n",tiempo);
   return (0);
 }
 
