@@ -6,6 +6,10 @@
 
 #include "ej5b.h"
 #include <string.h>
+#include <sys/time.h>
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 void menu();
 void
 ej5b_1(char *host)
@@ -20,6 +24,8 @@ ej5b_1(char *host)
 	int  *result_4;
 	char *usuarioslog_1_arg;
 	int opcion;
+	struct timeval timeInicio, timeFin;
+	long total, usegInicio, usegFin;
 	opcion=5;
 
 #ifndef	DEBUG
@@ -33,6 +39,7 @@ ej5b_1(char *host)
 	while (opcion!=0){
 	  menu();
 	  scanf("%i", &opcion);
+	  gettimeofday(&timeInicio,0);
 	  if (opcion==1){
 	    result_1 = tiempo_1((void*)&tiempo_1_arg, clnt);
 	    if (result_1 == (char **) NULL) {
@@ -66,7 +73,11 @@ ej5b_1(char *host)
 	  if (opcion==0){
 	     printf ("FIN\n");
 	  }
-	  
+		gettimeofday(&timeFin,0);// Instante final
+		usegInicio = ((timeInicio.tv_sec * 1000000) + timeInicio.tv_usec);	
+		usegFin = ((timeFin.tv_sec * 1000000) + timeFin.tv_usec);
+		total =usegFin - usegInicio;
+		printf("Tardo:%ld us \n", total);
 	}
 }
 

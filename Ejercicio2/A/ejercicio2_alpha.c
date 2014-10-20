@@ -38,5 +38,5 @@ int main()
 		execvp("./salida", NULL);
 		printf("Return not expected. Must be an execv error \n");
 	}
-	return 0
+	return 0;
 }

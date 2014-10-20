@@ -48,12 +48,6 @@ ej3b1_1(char *host)
 	tiempo= ((Tfin.tv_sec * 1000000) + Tfin.tv_usec) - ((Tinicio.tv_sec * 1000000) + Tinicio.tv_usec);
 	//muestro los resultados
 	printf ("La llamada a LocalCall demoro %g us \n",tiempo);
-	printf ("desea ver el resultado de la salida s/n \n");
-	aux=getchar();
-	if (aux=='s'){
-	for (i=0;i<512;i++)
-	  printf("salida[%i]:%lu\n",i,(result_1->datos[i])); 
-	}
 	
 #ifndef	DEBUG
 	clnt_destroy (clnt);

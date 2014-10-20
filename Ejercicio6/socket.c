@@ -16,8 +16,9 @@ struct sockaddr_in direccion; //struct para la info del socket
 
 //verifico si hay un amigo ya conectado
 int amigoConectado (char * nombreHost, char * puerto){
-    clntSocket = 0;
+    
     char hostName[255];
+    clntSocket = 0;
     strcpy(hostName, nombreHost);
     hostPort = atoi(puerto);
 

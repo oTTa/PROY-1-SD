@@ -15,17 +15,19 @@ char **
 tiempo_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static char * result;
-	char output[128];
+	char output[9];
 	// struct para obtener tiempo
 	const struct tm *loctim;
 	// operaciones para obtener la hora del sistema
 	time_t rawtime;
-	rawtime=time(0);
+	time(&rawtime);
 	loctim = localtime ( &rawtime );
 	// guardar en result la hora
 	
-        strftime(output,128,"%H:%M:%S",loctim);
-        result=output;
+        strftime(output,9,"%H:%M:%S\n",loctim);
+        result=(char*)malloc(sizeof(char)*9);
+        //result=output;
+        strcpy(result,output);
 	return &result;
 }
 
@@ -33,7 +35,7 @@ char **
 fecha_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static char * result;
-
+	char output[9];
 	// struct para obtener tiempo
 	const struct tm *loctim;
 	// operaciones para obtener la hora del sistema
@@ -41,7 +43,10 @@ fecha_1_svc(void *argp, struct svc_req *rqstp)
 	time ( &rawtime );
 	loctim = localtime ( &rawtime );
 	// guardar en result la hora
-	result = asctime(loctim);
+		strftime(output,9,"%d/%m/%y",loctim);
+        result=(char*)malloc(sizeof(char)*9);
+        //result=output;
+        strcpy(result,output);
 
 	return &result;
 }
@@ -52,7 +57,8 @@ nombre_1_svc(void *argp, struct svc_req *rqstp)
 	static char * result;
 	char mensaje[256];
 	gethostname(mensaje, 256);
-	result=mensaje;
+	result=(char*)malloc(sizeof(char)*256);
+	 strcpy(result,mensaje);
 	return &result;
 }
 

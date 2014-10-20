@@ -10,7 +10,7 @@ void LocalCall (unsigned long entrada,unsigned long *salida);
 int main (){
   //declaracion de variables
   unsigned long argumento;
-  unsigned long* respuesta;
+  unsigned long respuesta;
   double tiempo;
   struct timeval ti_usec, tf_usec;
   //genero un numero aleatorio
@@ -18,11 +18,11 @@ int main (){
   printf ("Se genero un argumento de tipo LONG (4 bytes) que tien el valor %lu\n",argumento);
   // ejecuto la llamada y calculo el tiempo
   gettimeofday(&ti_usec,0);  // Instante inicial
-  LocalCall(argumento,respuesta);
+  LocalCall(argumento,&respuesta);
   gettimeofday(&tf_usec,0);  // Instante final
   tiempo= (tf_usec.tv_sec - ti_usec.tv_sec)*1000000 + (tf_usec.tv_usec - ti_usec.tv_usec);
   //muestro los resultados
-  printf ("Local Call dio como resultado en la salida: %lu\n",*respuesta);  
+  printf ("Local Call dio como resultado en la salida: %lu\n",respuesta);  
   printf ("La llamada a LocalCall demoro %g us\n",tiempo);
   return (0);
 }
